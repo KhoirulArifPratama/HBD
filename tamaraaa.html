@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Love</title>
+  <style>
+    :root{--bg:#0f1226;--card:#111327;--accent:#ff4d7e;--muted:#bfc5d9}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{
+      background: radial-gradient(ellipse at 10% 10%, #29133a 0%, rgba(15,18,38,1) 40%),
+                linear-gradient(180deg,#0b0d16 30%, #0f1226 100%);
+      color:#fff;display:flex;align-items:center;justify-content:center;padding:16px 0;
+    }
+
+    .stage{
+      width:100%;max-width:420px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 12px 40px rgba(0,0,0,0.8);
+      position:relative;overflow:hidden;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+
+    .title{font-weight:800;font-size:28px;letter-spacing:0.8px;margin:0 0 6px;text-align:center}
+    .subtitle{color:var(--muted);font-size:16px;text-align:center;margin:0 0 28px; display: flex; justify-content: center; align-items: center; gap: 4px;}
+    .subtitle svg {width: 14px; height: 14px; margin-top: 2px;}
+
+    /* --- Area Foto --- */
+    .character-area{
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 25px;
+      animation: bounce 2.2s infinite ease-in-out;
+    }
+    @keyframes bounce {
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-10px)}
+    }
+
+    .photo-container {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      position: relative;
+      z-index: 3;
+      overflow: hidden;
+      border: 5px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 0 4px var(--accent), 0 5px 30px rgba(255, 77, 126, 0.6);
+      transition: all 0.3s ease;
+    }
+    .photo-container:hover {
+      transform: scale(1.05);
+    }
+
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .big-heart{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%, -50%);
+      width:260px;
+      height:260px;
+      z-index:1;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 30px rgba(255, 77, 126, 0.7));
+    }
+    /* --- Akhir Area Foto --- */
+
+    .heart-shape{
+      width:100%;height:100%;display:block;animation:heartbeat 1.15s infinite ease-in-out;
+      filter:drop-shadow(0 6px 18px rgba(255,77,126,0.35));
+    }
+    @keyframes heartbeat{0%{transform:scale(1)}25%{transform:scale(1.05)}45%{transform:scale(0.97)}65%{transform:scale(1.03)}100%{transform:scale(1)} }
+
+    .hearts-layer,.stars-layer{position:absolute;inset:0;pointer-events:none; z-index: 2;}
+    .heart,.star{position:absolute;opacity:0;animation:floatup linear infinite}
+    @keyframes floatup{0%{transform:translateY(0) scale(0.8);opacity:0}6%{opacity:1}100%{transform:translateY(-300px) scale(1.2);opacity:0}}
+
+    .star svg{width:14px;height:14px;filter:drop-shadow(0 0 6px rgba(255,255,255,0.8))}
+
+    .msg{
+      text-align:center;padding:15px 12px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent);
+      border-radius:14px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .msg p{margin:0;font-size:16px; font-weight: 500;}
+    .msg p:first-child { font-weight: 700; color: #fff; }
+    .controls{display:flex;gap:12px;justify-content:center;margin-top:16px}
+    button{background:transparent;border:1px solid rgba(255,255,255,0.1);padding:10px 18px;border-radius:12px;color:#fff;cursor:pointer;transition: all 0.2s ease; font-weight: 600; min-width: 120px;}
+    button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); background-color: rgba(255,255,255,0.05); }
+    button.primary{background:var(--accent);border-color:var(--accent);font-weight:700;box-shadow: 0 4px 15px rgba(255, 77, 126, 0.5);}
+    button.primary:hover { background: #ff6699; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 77, 126, 0.7);}
+
+    @media (max-width:420px){.stage{margin:12px;padding:24px}}
+    
+    /* Global animation toggle */
+    .no-anim .heart, .no-anim .star {
+      animation-play-state: paused !important;
+    }
+    .no-anim .heart-shape, .no-anim .character-area {
+      animation: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <h1 class="title">My Love</h1>
+    <p class="subtitle">
+      Noor Aisya Humaira
+      <svg viewBox="0 0 24 24" fill="#ff4d7e" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+    </p>
+
+    <div class="character-area" id="character">
+      <div class="big-heart" aria-hidden="true">
+        <svg class="heart-shape" viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#ff4d7e" d="M23.6 0c-2.9 0-5 1.7-6.6 3.9C15.4 1.7 13.3 0 10.4 0 4.7 0 0 4.8 0 10.6c0 5.6 4.5 10.1 11.2 16.1L16 29.6l4.8-2.9C27.5 20.7 32 16.2 32 10.6 32 4.8 27.3 0 23.6 0z"/>
+        </svg>
+      </div>
+      <div class="photo-container">
+        <img src="WhatsApp Image 2025-10-16 at 07.55.17.jpeg" alt="Foto Tama"> 
+      </div>
+    </div>
+    <div class="hearts-layer" id="hearts"></div>
+    <div class="stars-layer" id="stars"></div>
+
+    <div class="msg">
+      <p id="loveText">You are my happiness 💕</p>
+      <p style="font-size:14px;color:#ffb6c8;margin-top:6px;">Klik tombol berikut jika Iraa sayang Tama</p>
+      <div class="controls">
+        <button id="sendHeart" class="primary">Kirim Hati</button>
+        <button id="toggleAnim">Matikan Animasi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const heartsLayer = document.getElementById('hearts');
+    const starsLayer = document.getElementById('stars');
+    const colors = ['#ff4d7e','#ff8fa3','#ffd1e0','#ff6b99'];
+    const starColors = ['#fff5b8','#ffe3f1','#fff'];
+
+    const stage = document.querySelector('.stage');
+    let stageRect = stage.getBoundingClientRect();
+    window.addEventListener('resize', () => {
+      stageRect = stage.getBoundingClientRect();
+    });
+
+    function createHeart(x,y,size,delay,speed,color){
+      const el=document.createElement('div');
+      el.className='heart';
+      // Menyesuaikan posisi relatif terhadap Stage
+      const relativeX = x - stageRect.left; 
+      const relativeY = y - stageRect.top;
+
+      el.style.left=relativeX+'px';
+      el.style.top=relativeY+'px';
+      el.style.width=size+'px';el.style.height=size+'px';
+      el.style.animationDuration=speed+'s';el.style.animationDelay=delay+'s';
+
+      el.innerHTML=`<svg viewBox="0 0 32 29.6"><path fill="${color}" d="M23.6 0c-2.9 0-5 1.7-6.6 3.9C15.4 1.7 13.3 0 10.4 0 4.7 0 0 4.8 0 10.6c0 5.6 4.5 10.1 11.2 16.1L16 29.6l4.8-2.9C27.5 20.7 32 16.2 32 10.6 32 4.8 27.3 0 23.6 0z"/></svg>`;
+      heartsLayer.appendChild(el);
+      setTimeout(()=>el.remove(),(speed+delay)*1000+500);
+    }
+
+    function createStar(x,y,delay,speed,color){
+      const el=document.createElement('div');
+      el.className='star';
+      // Menyesuaikan posisi relatif terhadap Stage
+      const relativeX = x - stageRect.left; 
+      const relativeY = y - stageRect.top;
+
+      el.style.left=relativeX+'px';
+      el.style.top=relativeY+'px';
+      el.style.animationDuration=speed+'s';el.style.animationDelay=delay+'s';
+      
+      el.innerHTML=`<svg viewBox="0 0 24 24"><path fill="${color}" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+      starsLayer.appendChild(el);
+      setTimeout(()=>el.remove(),(speed+delay)*1000+500);
+    }
+
+    function randomInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+
+    function burst(count=6){
+      // Membuat hati/bintang muncul dari area bawah stage
+      for(let i=0;i<count;i++){
+        const x=randomInt(stageRect.left + 30, stageRect.right - 30);
+        // Memulai sedikit di bawah stage
+        const y=stageRect.bottom + randomInt(10, 40); 
+        createHeart(x,y,randomInt(14,30),Math.random()*0.6,3.0+Math.random()*2.0,colors[randomInt(0,colors.length-1)]);
+        if(Math.random()>0.4){
+          createStar(x+randomInt(-20,20),y+randomInt(-20,20),Math.random()*0.6,2.5+Math.random()*1.5,starColors[randomInt(0,starColors.length-1)]);
+        }
+      }
+    }
+
+    burst(12);
+
+    document.getElementById('sendHeart').addEventListener('click',()=>{
+      const char=document.getElementById('character');
+      const rect=char.getBoundingClientRect();
+      // Mengambil posisi tengah foto di layar
+      const baseX=rect.left+rect.width/2;
+      const baseY=rect.top+rect.height/2;
+      
+      // Burst dari area foto
+      for(let i=0;i<18;i++){
+        createHeart(baseX+randomInt(-45,45),baseY+randomInt(-45,15),
+        randomInt(16,32),Math.random()*0.2,2.5+Math.random()*1.8,
+        colors[randomInt(0,colors.length-1)]);
+        if(Math.random()>0.3){
+          createStar(baseX+randomInt(-50,50),baseY+randomInt(-50,20),
+          Math.random()*0.3,2.0+Math.random()*1.4,
+          starColors[randomInt(0,starColors.length-1)]);
+        }
+      }
+      
+      const t=document.getElementById('loveText');
+      t.textContent=['You are my happiness 💕','I’m so lucky to have you 💖','You’re my world 🌍','My love is only for you ❤️','I love you 💘'][Math.floor(Math.random()*5)];
+    });
+
+    let animOn=true;
+    document.getElementById('toggleAnim').addEventListener('click',e=>{
+      animOn=!animOn;
+      document.body.classList.toggle('no-anim', !animOn);
+      e.target.textContent=animOn?'Matikan Animasi':'Hidupkan Animasi';
+      if(animOn) {
+        pulse=setInterval(()=>burst(6),3000);
+      } else {
+        clearInterval(pulse);
+      }
+    });
+    
+
+    let pulse=setInterval(()=>burst(6),3000); 
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden){clearInterval(pulse);}else if(animOn){pulse=setInterval(()=>burst(6),3000);}
+    });
+  </script>
+</body>
+</html>
